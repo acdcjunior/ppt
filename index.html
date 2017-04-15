@@ -1,12 +1,47 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>Highlight for PPT</title>
-  </head>
-  <body>
-Hey!
- 
-  </body>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Highlight for PPT</title>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</head>
+<body>
+
+	<textarea name="" id="pasted-text" cols="30" rows="10"></textarea>
+  <button id="format">Format!</button>
+
+  <hr>
+  <div id="output"></div>
+  <hr>
+  Edit: <a href="https://jsfiddle.net/acdcjunior/61105o0m/2">JSFiddle</a>
+  
+	<script type='text/javascript'>//<![CDATA[
+	window.onload=function(){
+	$("#format").click(() => {
+		let html = $("#pasted-text").val();
+	  html = html.replace(/background-color/g, 'b');
+	  
+	  html = html.replace(/content:"_+";/g, '');
+	  
+	  let inicios = html.match(/<p class="_style_line">\n<span class="_style_span ">\s+/gm);
+	  let menorInicio = inicios[0];
+	  inicios.forEach(inicio => {
+		 if (inicio.length <= menorInicio.length) {
+		   menorInicio = inicio;
+		 }
+	  })
+	  console.log(menorInicio);
+	  let menorInicioSemEspacos = menorInicio.trim();
+	  html = html.split(menorInicio).join(menorInicioSemEspacos);
+	  
+	  html = html.replace(/   /g, ' &nbsp; ');
+	  $("#output").html(html)
+	  $("#output *").css('font-family', 'Consolas');
+	  
+	})
+	}//]]> 
+	</script>
+
+</body>
 </html>
+
