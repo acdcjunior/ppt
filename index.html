@@ -42,6 +42,15 @@
 	}//]]> 
 	</script>
 
+<hr>
+<pre>
+$("pre code").contents().each(function() {
+	if (this.nodeType == 3) {
+		this.nodeValue = this.nodeValue.replace(/ /g, '\u00A0').replace(/\n/g, '\u2B0E');
+	} 
+}).end().html((i, html) => html.replace(/\u2B0E/g, "<br>"));
+</pre>
+
 </body>
 </html>
 
